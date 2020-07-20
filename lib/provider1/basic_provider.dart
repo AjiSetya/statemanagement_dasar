@@ -6,14 +6,17 @@ import 'application_color.dart';
 class ContentProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // menggunakan pemberitahuan perubahan data dengan applicationcolor
     return ChangeNotifierProvider<ApplicationColor>(
       create: (context) => ApplicationColor(),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
+          // widget yang akan menampilkan data dibungkus dengan consumer
           title: Consumer<ApplicationColor>(
             builder: (context, applicationColor, _) => Text(
-              "Provider State Management",
+              "Provider Basic",
+              // data warna diambil dari applicationcolor mengikuti state yang terbaru
               style: TextStyle(color: applicationColor.color),
             ),
           ),
@@ -24,6 +27,7 @@ class ContentProvider extends StatelessWidget {
             children: <Widget>[
               Consumer<ApplicationColor>(
                 builder: (context, applicationColor, _) => AnimatedContainer(
+                    // data warna diambil dari applicationcolor mengikuti state yang terbaru
                     color: applicationColor.color,
                     margin: EdgeInsets.all(5),
                     width: 100,
@@ -36,8 +40,10 @@ class ContentProvider extends StatelessWidget {
                   Text("AB"),
                   Consumer<ApplicationColor>(
                       builder: (context, applicationColor, _) => Switch(
+                          // data switch diambil dari applicationcolor mengikuti state yang terbaru
                           value: applicationColor.isColorBlue,
                           onChanged: (newvalue) {
+                            // mengubah state berdasarkan nilai switch terbaru
                             applicationColor.isColorBlue = newvalue;
                           })),
                   Text("LB")

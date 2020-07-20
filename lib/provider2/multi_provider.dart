@@ -7,6 +7,7 @@ class MultiContentProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
+      // memasukkan provider yang dibutuhkan
       providers: [
         ChangeNotifierProvider<Balance>(create: (context) => Balance()),
         ChangeNotifierProvider<Cart>(create: (context) => Cart()),
@@ -15,7 +16,7 @@ class MultiContentProvider extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.black,
           title: Text(
-            "Provider State Management",
+            "Multi Provider",
           ),
         ),
         body: Column(
@@ -32,6 +33,7 @@ class MultiContentProvider extends StatelessWidget {
                   Text('Balance'),
                   Consumer<Balance>(
                     builder: (context, balance, _) => Text(
+                      // mengambil teks dari getter money
                       balance.money.toString(),
                       style: TextStyle(
                           color: Colors.purple, fontWeight: FontWeight.bold),
@@ -50,6 +52,7 @@ class MultiContentProvider extends StatelessWidget {
                 builder: (context, cart, _) => Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
+                    // mengambil teks dari getter quantity
                     Text('Apple x ' + cart.quantity.toString()),
                     Text((5000 * cart.quantity).toString())
                   ],
@@ -58,13 +61,16 @@ class MultiContentProvider extends StatelessWidget {
             ),
           ],
         ),
+        // karena mengambil dari 2 provider maka dibuat nested builder
         floatingActionButton: Consumer<Balance>(
           builder: (context, balance, _) => Consumer<Cart>(
             builder: (context, cart, _) => FloatingActionButton(
               backgroundColor: Colors.purple,
               onPressed: () {
                 if (balance.money >= 5000) {
+                  // set quantity
                   cart.quantity++;
+                  // set money
                   balance.money -= 5000;
                 }
               },

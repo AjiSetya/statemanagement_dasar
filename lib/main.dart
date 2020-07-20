@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:providerstatemanagement/bloc1/basic_bloc.dart';
 
 import 'provider1/basic_provider.dart';
 import 'provider2/multi_provider.dart';
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => HomeBody(),
         '/contentprovider': (context) => ContentProvider(),
-        '/multiprovider': (context) => MultiContentProvider()
+        '/multiprovider': (context) => MultiContentProvider(),
+        '/basicbloc': (context) => BasicBloc()
       },
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -53,6 +55,14 @@ class HomeBody extends StatelessWidget {
                 child: Text('Multi Content Provider'),
                 onPressed: () {
                   Navigator.pushNamed(context, '/multiprovider');
+                }),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: RaisedButton(
+                child: Text('BLoC'),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/basicbloc');
                 }),
           ),
         ],
