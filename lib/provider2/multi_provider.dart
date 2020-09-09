@@ -8,78 +8,63 @@ class MultiContentProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      // memasukkan provider yang dibutuhkan
-      providers: [
-        ChangeNotifierProvider<Balance>(create: (context) => Balance()),
-        ChangeNotifierProvider<Cart>(create: (context) => Cart()),
-      ],
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: Text(
-            "Multi Provider",
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text(
+          "Multi Provider",
         ),
-        body: Column(
-          children: <Widget>[
-            Container(
-              height: 40,
-              padding: EdgeInsets.all(8),
-              margin: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.purple, width: 2)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text('Balance'),
-                  Consumer<Balance>(
-                    builder: (context, balance, _) => Text(
-                      // mengambil teks dari getter money
-                      balance.money.toString(),
-                      style: TextStyle(
-                          color: Colors.purple, fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              height: 40,
-              padding: EdgeInsets.all(8),
-              margin: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 2)),
-              child: Consumer<Cart>(
-                builder: (context, cart, _) => Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    // mengambil teks dari getter quantity
-                    Text('Apple x ' + cart.quantity.toString()),
-                    Text((5000 * cart.quantity).toString())
-                  ],
+      ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            height: 40,
+            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.purple, width: 2)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('Balance'),
+                Text(
+                  // mengambil teks dari getter money
+                  context.watch<Balance>().money.toString(),
+                  style: TextStyle(
+                      color: Colors.purple, fontWeight: FontWeight.bold),
                 ),
-              ),
-            ),
-          ],
-        ),
-        // karena mengambil dari 2 provider maka dibuat nested builder
-        floatingActionButton: Consumer<Balance>(
-          builder: (context, balance, _) => Consumer<Cart>(
-            builder: (context, cart, _) => FloatingActionButton(
-              backgroundColor: Colors.purple,
-              onPressed: () {
-                if (balance.money >= 5000) {
-                  // set quantity
-                  cart.quantity++;
-                  // set money
-                  balance.money -= 5000;
-                }
-              },
-              child: Icon(Icons.add_shopping_cart),
+              ],
             ),
           ),
-        ),
+          Container(
+            height: 40,
+            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 2)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                // mengambil teks dari getter quantity
+                Text('Apple x ' + context.watch<Cart>().quantity.toString()),
+                Text((5000 * context.watch<Cart>().quantity).toString())
+              ],
+            ),
+          ),
+        ],
+      ),
+      // karena mengambil dari 2 provider maka dibuat nested builder
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.purple,
+        onPressed: () {
+          if (context.read<Balance>().money >= 5000) {
+            // set quantity
+            context.read<Cart>().quantity++;
+            // set money
+            context.read<Balance>().money -= 5000;
+          }
+        },
+        child: Icon(Icons.add_shopping_cart),
       ),
     );
   }

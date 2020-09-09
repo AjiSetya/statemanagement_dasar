@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:providerstatemanagement/provider3/provider_text.dart';
 
 import 'bloc1/basic_bloc.dart';
 import 'bloc2/bloc2.dart';
@@ -23,12 +24,17 @@ class HomeBody extends StatelessWidget {
           ItemButton(
               buttonText: 'Provider',
               onPressed: () {
-                Navigator.pushNamed(context, Provider.id);
+                Navigator.pushNamed(context, ProviderBasic.id);
               }),
           ItemButton(
               buttonText: 'Multi Provider',
               onPressed: () {
                 Navigator.pushNamed(context, MultiContentProvider.id);
+              }),
+          ItemButton(
+              buttonText: 'Provider Text Changed',
+              onPressed: () {
+                Navigator.pushNamed(context, ProviderTextChange.id);
               }),
           ItemButton(
               buttonText: 'BLoC',
