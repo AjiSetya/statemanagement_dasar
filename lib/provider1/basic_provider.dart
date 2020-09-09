@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 
 import 'application_color.dart';
 
-class ContentProvider extends StatelessWidget {
+class Provider extends StatelessWidget {
+  static const String id = 'provider_screen';
+  
   @override
   Widget build(BuildContext context) {
     // menggunakan pemberitahuan perubahan data dengan applicationcolor

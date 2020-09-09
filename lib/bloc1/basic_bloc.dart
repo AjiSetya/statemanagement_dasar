@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:providerstatemanagement/bloc1/color_bloc.dart';
 
 class BasicBloc extends StatefulWidget {
+  static const String id = 'bloc_screen';
+
   @override
   _BasicBlocState createState() => _BasicBlocState();
 }

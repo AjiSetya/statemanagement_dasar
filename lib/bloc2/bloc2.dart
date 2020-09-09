@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:providerstatemanagement/bloc2/color_bloc2.dart';
 
 class BlocKedua extends StatelessWidget {
+  static const String id = 'bloc2_screen';
+
   @override
   Widget build(BuildContext context) {
     ColorBloc2 bloc2 = BlocProvider.of(context);

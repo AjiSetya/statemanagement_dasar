@@ -4,6 +4,8 @@ import 'package:providerstatemanagement/provider2/balance.dart';
 import 'package:providerstatemanagement/provider2/cart.dart';
 
 class MultiContentProvider extends StatelessWidget {
+  static const String id = 'multiprovider_screen';
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
